@@ -1,15 +1,21 @@
-AC_INIT( src/imapsh.py )
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
 
-PACKAGE=imapsh
-VERSION=0.0.0PR0
+AC_PREREQ([2.66])
+AC_INIT([imapsh], [0.0.0PR0], [Tommy.Reynolds@MegaCoder.com])
+AM_INIT_AUTOMAKE()
+AM_MAINTAINER_MODE
+AM_PATH_PYTHON([2.3])
 
-AM_INIT_AUTOMAKE( $PACKAGE, $VERSION )
+# Checks for programs.
 
-AC_SUBST( VERSION )
+# Checks for libraries.
 
-AC_PROG_PY
+# Checks for header files.
 
-AC_OUTPUT(
-	Makefile
-	src/Makefile
-)
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_OUTPUT
