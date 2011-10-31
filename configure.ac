@@ -1,0 +1,15 @@
+AC_INIT( src/imapsh.py )
+
+PACKAGE=imapsh
+VERSION=0.0.0PR0
+
+AM_INIT_AUTOMAKE( $PACKAGE, $VERSION )
+
+AC_SUBST( VERSION )
+
+AC_PROG_PY
+
+AC_OUTPUT(
+	Makefile
+	src/Makefile
+)
