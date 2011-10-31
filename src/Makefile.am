@@ -1,2 +1,2 @@
-bin_PROGRAMS = imapsh
-imapsh_SOURCES = imapsh.py
+python_PYTHON = imapsh.py
+imapsh_EXTRA_DIST = Makefile.im
