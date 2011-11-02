@@ -5,48 +5,31 @@ import  os
 import  readline
 import  rlcompleter
 
-class   Cli( object ):
+class   Completer:
 
-    def __init__( self, histfile = '~/.readline.rc' ):
-        readline.parse_and_bind( 'tab: complete' )
-        readline.parse_and_bind( 'set editing-mode vi' )
-        self.histfile = os.path.expanduser( histfile )
+    def __init__( self, words = None ):
+        self.words = words
+        self.words.sort()
+        self.prefix = None
+        return
+
+    def complete( self, prefix, index ):
+        if prefix != self.prefix:
+            self.matching_words = [
+                w for w in self.words if w.startswith( prefix )
+            ]
+            self.prefix = prefix
         try:
-            readline.read_init_file( self.histfile )
-        except IOError:
-            pass
-        self.completer = rlcompleter.Completer()
-        self.cwd = '.'
-        self.show_prompt = True
-        self.prompt = '> '
-        self.stdout = sys.stdout
-        return
-
-    def prompt_set( self, prompt = '> ' ):
-        self.prompt = prompt
-        self.show_prompt = True
-        return
-
-    def prompt_enable( self ):
-        self.show_prompt = True
-        return
-
-    def prompt_disable( self ):
-        self.show_prompt = False
-        return
-
-    def get_input( self, show_prompt = None, prompt = None ):
-        if show_prompt is None:
-            show_prompt = self.show_prompt
-        if show_prompt:
-            if prompt is None:
-                prompt = self.prompt
-            line = raw_input( prompt ).strip()
-        else:
-            line = self.stdin.readline().strip()
-        return line
+            return self.matching_words[ index ]
+        except IndexError:
+            return None
 
 if __name__ == '__main__':
-    cli = Cli()
-    line = cli.get_input()
-    print line
+    completer = Completer( os.listdir( '.' ) )
+    index = 0
+    while True:
+        words = completer.complete( 's', index )
+        index += 1
+        if words is None:
+            break
+        print words
